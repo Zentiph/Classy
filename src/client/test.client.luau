@@ -41,3 +41,19 @@ pet:Speak() -- Should print "Generic Animal says hello!"
 local dog: Dog = Dog.new("Rex")
 dog:Speak() -- Should print "Rex barks!"
 dog:Bite(Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") or error("No humanoid found!"))
+
+local Vector4 = Classy:NewClass("Vector4", function(cls, x: number, y: number, z: number, w: number)
+	cls.X = x
+	cls.Y = y
+	cls.Z = z
+	cls.W = w
+end)
+
+Classy:SetAddMethod(Vector4, function(cls, other)
+	if Classy:TypeOf(other) ~= "Vector4" then
+		error("Cannot add Vector4 with " .. Classy:TypeOf(other))
+	end
+
+	local otherVec = Classy:Cast("Vector4", other)
+	return Vector4.new(cls.X + otherVec.X, cls.Y + otherVec.Y, cls.Z + otherVec.Z, cls.W + otherVec.W)
+end)
