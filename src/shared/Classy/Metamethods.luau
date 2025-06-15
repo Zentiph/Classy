@@ -28,7 +28,7 @@ export type Class<T, A...> = {
 	__len: ((self: T) -> number)?,
 }
 
---- @class Metamethods
+--- @class Classy.Metamethods
 --- Metamethod setters for classes in Classy.
 local Metamethods = {}
 
@@ -43,6 +43,7 @@ method - Function that takes the class instance and returns a string representat
 ---
 --- @param class Class<T, A...> -- The class to set the method for
 --- @param method (cls: T) -> string -- the function that takes the class instance and returns a string representation of it
+--- @within Classy.Metamethods
 function Metamethods:SetToStringMethod<T, A...>(class: Class<T, A...>, method: (cls: T) -> string)
 	if not class.__tostring then
 		class.__tostring = method
@@ -55,6 +56,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> Class<T, A...> -- Function that takes the class instance and another value, returning a new class instance or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetAddMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> Class<T, A...>)
 	if not class.__add then
 		class.__add = method
@@ -67,6 +69,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> Class<T, A...> -- Function that takes the class instance and another value, returning a new class instance or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetSubMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> Class<T, A...>)
 	if not class.__sub then
 		class.__sub = method
@@ -79,6 +82,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> Class<T, A...> -- Function that takes the class instance and another value, returning a new class instance or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetMulMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> Class<T, A...>)
 	if not class.__mul then
 		class.__mul = method
@@ -91,6 +95,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> Class<T, A...> -- Function that takes the class instance and another value, returning a new class instance or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetDivMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> Class<T, A...>)
 	if not class.__div then
 		class.__div = method
@@ -103,6 +108,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> Class<T, A...> -- Function that takes the class instance and another value, returning a new class instance or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetModMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> Class<T, A...>)
 	if not class.__mod then
 		class.__mod = method
@@ -115,6 +121,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> Class<T, A...> -- Function that takes the class instance and another value, returning a new class instance or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetPowMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> Class<T, A...>)
 	if not class.__pow then
 		class.__pow = method
@@ -127,6 +134,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> string -- Function that takes the class instance and another value, returning a string or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetConcatMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> string)
 	if not class.__concat then
 		class.__concat = method
@@ -139,6 +147,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> boolean -- Function that takes the class instance and another value, returning a boolean or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetEqMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> boolean)
 	if not class.__eq then
 		class.__eq = method
@@ -151,6 +160,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> boolean -- Function that takes the class instance and another value, returning a boolean or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetLtMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> boolean)
 	if not class.__lt then
 		class.__lt = method
@@ -163,6 +173,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, other: any) -> boolean -- Function that takes the class instance and another value, returning a boolean or erroring if the operation is not valid
+--- @within Classy.Metamethods
 function Metamethods:SetLeMethod<T, A...>(class: Class<T, A...>, method: (cls: T, other: any) -> boolean)
 	if not class.__le then
 		class.__le = method
@@ -175,6 +186,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T, ...any) -> ...any -- Function that is called when the class is called, receiving the class instance and any additional arguments
+--- @within Classy.Metamethods
 function Metamethods:SetCallMethod<T, A...>(class: Class<T, A...>, method: (cls: T, ...any) -> ...any)
 	if not class.__call then
 		class.__call = method
@@ -187,6 +199,7 @@ end
 ---
 --- @param class Class<T, A...> -- Class to set the method for
 --- @param method (cls: T) -> number -- Function that returns the "size" of the class instance
+--- @within Classy.Metamethods
 function Metamethods:SetLenMethod<T, A...>(class: Class<T, A...>, method: (cls: T) -> number)
 	if not class.__len then
 		class.__len = method
